@@ -126,7 +126,7 @@ body{
 .wrap{width:min(1000px,100% - 32px); margin:-56px auto 40px; position:relative; z-index:3; flex:1}
 
 /* ============================================================
-   كيف يعمل — مضغوط
+   كيف يعمل
    ============================================================ */
 .how{margin:0 0 22px; text-align:center}
 .how h2{
@@ -176,7 +176,7 @@ body{
 }
 
 /* ============================================================
-   اختيار بيع / إيجار
+   بيع / إيجار
    ============================================================ */
 .deal-choice{
   display:grid; grid-template-columns:1fr 1fr; gap:12px;
@@ -201,7 +201,7 @@ body{
 }
 
 /* ============================================================
-   ★ بطاقات نوع العقار (مصوّرة)
+   بطاقات نوع العقار — بأشكال واضحة
    ============================================================ */
 .section-label{
   font-size:13px; font-weight:800; color:var(--navy2);
@@ -223,7 +223,7 @@ body{
   background:#fbfcfe;
   border:2px solid var(--line);
   border-radius:14px;
-  padding:14px 8px 11px;
+  padding:14px 6px 11px;
   display:flex; flex-direction:column; align-items:center; gap:8px;
   transition:.22s;
   user-select:none;
@@ -231,17 +231,17 @@ body{
 }
 .type-card input{position:absolute; opacity:0; pointer-events:none}
 .type-card .img{
-  width:56px; height:56px;
+  width:64px; height:64px;
   display:grid; place-items:center;
   border-radius:12px;
   background:linear-gradient(135deg,#eef3fb,#e0e9f6);
   transition:.25s;
+  position:relative;
 }
 .type-card .img svg{
-  width:32px; height:32px;
-  stroke:var(--navy2); stroke-width:1.7; fill:none;
-  stroke-linecap:round; stroke-linejoin:round;
+  width:42px; height:42px;
   transition:.25s;
+  display:block;
 }
 .type-card .name{
   font-size:12.5px; font-weight:800; color:#33415c;
@@ -261,17 +261,15 @@ body{
   background:linear-gradient(135deg,#fdf6e3,#f5e6b3);
   transform:scale(1.05);
 }
-.type-card:has(input:checked) .img svg{
-  stroke:#8a6a00;
-}
 .type-card:has(input:checked)::after{
   content:'✓';
   position:absolute; top:6px; left:6px;
-  width:18px; height:18px; border-radius:50%;
+  width:20px; height:20px; border-radius:50%;
   background:var(--gold); color:#fff;
-  font-size:11px; font-weight:900;
+  font-size:12px; font-weight:900;
   display:grid; place-items:center;
   box-shadow:0 2px 6px rgba(201,162,39,.5);
+  z-index:2;
 }
 
 /* ============================================================
@@ -417,8 +415,8 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
   .deal-choice{grid-template-columns:1fr 1fr}
   .site-header{padding:40px 18px 78px}
   .type-grid{grid-template-columns:repeat(3,1fr)}
-  .type-card .img{width:48px; height:48px}
-  .type-card .img svg{width:26px; height:26px}
+  .type-card .img{width:56px; height:56px}
+  .type-card .img svg{width:36px; height:36px}
 }
 @media(max-width:420px){
   .type-grid{grid-template-columns:repeat(2,1fr)}
@@ -480,7 +478,6 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
     <form id="reqForm" novalidate>
 
-      <!-- بيع / إيجار -->
       <div class="deal-choice">
         <label>
           <input type="radio" name="deal" value="بيع" checked>
@@ -494,56 +491,105 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
         </label>
       </div>
 
-      <!-- نوع العقار (بطاقات مصوّرة) -->
+      <!-- نوع العقار — أشكال واضحة -->
       <div class="section-label">نوع العقار <span class="req" style="margin-right:6px">*</span></div>
       <div class="type-grid" id="typeGrid">
+
+        <!-- فيلا: بيت بسقف مثلث وباب -->
         <label class="type-card">
           <input type="radio" name="type" value="فيلا">
           <div class="img">
-            <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 22L24 6l18 16" fill="#dfe9f6"/>
+              <path d="M10 20v20h28V20"/>
+              <rect x="20" y="28" width="8" height="12" fill="#b8cbe3"/>
+              <rect x="14" y="26" width="4" height="4" fill="#b8cbe3"/>
+              <rect x="30" y="26" width="4" height="4" fill="#b8cbe3"/>
+            </svg>
           </div>
           <span class="name">فيلا</span>
         </label>
 
+        <!-- شقة: عمارة بنوافذ -->
         <label class="type-card">
           <input type="radio" name="type" value="شقة">
           <div class="img">
-            <svg viewBox="0 0 24 24"><path d="M4 21V7l8-4v18"/><path d="M12 9l8 3v9"/><path d="M7 10h.01M7 14h.01M7 18h.01M16 13h.01M16 17h.01"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="14" y="6" width="20" height="36" fill="#dfe9f6"/>
+              <rect x="18" y="11" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="25" y="11" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="18" y="20" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="25" y="20" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="18" y="29" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="25" y="29" width="5" height="5" fill="#b8cbe3"/>
+              <rect x="20" y="38" width="8" height="4" fill="#b8cbe3"/>
+            </svg>
           </div>
           <span class="name">شقة</span>
         </label>
 
+        <!-- أرض تجارية: مبنى بمدخل ومظلة -->
         <label class="type-card">
           <input type="radio" name="type" value="أرض تجارية">
           <div class="img">
-            <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="8" y="14" width="32" height="28" fill="#dfe9f6"/>
+              <path d="M6 14l4-8h28l4 8z" fill="#b8cbe3"/>
+              <rect x="14" y="22" width="6" height="6" fill="#b8cbe3"/>
+              <rect x="28" y="22" width="6" height="6" fill="#b8cbe3"/>
+              <rect x="19" y="32" width="10" height="10" fill="#b8cbe3"/>
+              <path d="M4 42h40"/>
+            </svg>
           </div>
           <span class="name">أرض تجارية</span>
         </label>
 
+        <!-- أرض عادية: مستطيل مستوٍ بعلامات -->
         <label class="type-card">
           <input type="radio" name="type" value="أرض عادية">
           <div class="img">
-            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M3 14l4-3 3 2 4-4 7 5"/><circle cx="8" cy="10" r="1.3"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 34h40" />
+              <rect x="10" y="18" width="28" height="16" fill="#dfe9f6"/>
+              <path d="M14 24h4M22 24h4M30 24h4"/>
+              <path d="M14 29h4M22 29h4M30 29h4"/>
+              <path d="M24 10v5"/>
+              <circle cx="24" cy="7" r="2.5" fill="#c9a227" stroke="#c9a227"/>
+            </svg>
           </div>
           <span class="name">أرض عادية</span>
         </label>
 
+        <!-- أرض خام: جبل وأرض ترابية -->
         <label class="type-card">
           <input type="radio" name="type" value="أرض خام">
           <div class="img">
-            <svg viewBox="0 0 24 24"><path d="M3 20l6-11 4 6 3-4 5 9z"/><path d="M3 20h18"/><circle cx="17" cy="6" r="1.5"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 38l10-18 6 9 4-6 8 12 5-8 9 11z" fill="#dfe9f6"/>
+              <path d="M3 38h42"/>
+              <path d="M11 20l2 3M38 22l-2 3"/>
+              <path d="M8 32l3-5M36 32l-3-5"/>
+            </svg>
           </div>
           <span class="name">أرض خام</span>
         </label>
 
+        <!-- مزرعة: شمس ونخلة -->
         <label class="type-card">
           <input type="radio" name="type" value="مزرعة">
           <div class="img">
-            <svg viewBox="0 0 24 24"><path d="M12 21V8"/><path d="M12 8c0-3 2-5 5-5 0 3-2 5-5 5z"/><path d="M12 12c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M4 21h16"/></svg>
+            <svg viewBox="0 0 48 48" fill="none" stroke="#173a66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M24 40V20"/>
+              <path d="M24 20c0-6 4-10 10-10 0 6-4 10-10 10z" fill="#dfe9f6"/>
+              <path d="M24 26c0-6-4-10-10-10 0 6 4 10 10 10z" fill="#dfe9f6"/>
+              <path d="M24 32c0-5 3-8 8-8 0 5-3 8-8 8z" fill="#dfe9f6"/>
+              <path d="M6 40h36"/>
+              <circle cx="38" cy="10" r="4" fill="#f5e6b3" stroke="#c9a227"/>
+            </svg>
           </div>
           <span class="name">مزرعة</span>
         </label>
+
       </div>
 
       <!-- بيانات العقار -->
@@ -698,9 +744,6 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 </div>
 
 <script>
-/* ============================================================
-   ⚙️ الإعدادات
-   ============================================================ */
 const ADMIN_USER  = 'Majed1417';
 const ADMIN_PASS  = 'Majed123*';
 const WEBHOOK_URL = '';
@@ -715,9 +758,8 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 
 function fmtDate(ts){
   const d = new Date(ts);
-  const date = d.toLocaleDateString('ar-EG', {year:'numeric', month:'2-digit', day:'2-digit'});
-  const time = d.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
-  return date + ' — ' + time;
+  return d.toLocaleDateString('ar-EG', {year:'numeric', month:'2-digit', day:'2-digit'})
+    + ' — ' + d.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
 }
 function fmtRange(a, b, unit){
   a = (a ?? '').toString(); b = (b ?? '').toString();
@@ -736,9 +778,6 @@ function waLink(p){
 
 $('year').textContent = new Date().getFullYear();
 
-/* ============================================================
-   الفورم
-   ============================================================ */
 const form = $('reqForm');
 const formErr = $('formErr');
 
@@ -790,8 +829,7 @@ form.addEventListener('submit', e => {
 
   if(WEBHOOK_URL){
     fetch(WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: 'POST', mode: 'no-cors',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(req)
     }).catch(()=>{});
@@ -799,7 +837,6 @@ form.addEventListener('submit', e => {
 
   form.reset();
   document.querySelector('input[name="deal"][value="بيع"]').checked = true;
-  // إلغاء اختيار نوع العقار بعد الإرسال
   document.querySelectorAll('input[name="type"]').forEach(el => el.checked = false);
   $('budgetFrom').disabled = false;
   $('budgetTo').disabled   = false;
@@ -811,9 +848,6 @@ $('successClose').addEventListener('click', () => {
   window.scrollTo({top:0, behavior:'smooth'});
 });
 
-/* ============================================================
-   ★ تسجيل الدخول
-   ============================================================ */
 $('starBtn').addEventListener('click', () => {
   $('loginModal').classList.remove('hidden');
   $('loginErr').hidden = true;
@@ -846,9 +880,6 @@ $('logoutBtn').addEventListener('click', () => {
   window.scrollTo({top:0, behavior:'smooth'});
 });
 
-/* ============================================================
-   لوحة الطلبات
-   ============================================================ */
 function openAdmin(){
   $('formCard').classList.add('hidden');
   $('adminPanel').classList.remove('hidden');
@@ -953,7 +984,6 @@ $('filterType').addEventListener('change', renderAdmin);
 $('filterStatus').addEventListener('change', renderAdmin);
 $('refreshBtn').addEventListener('click', renderAdmin);
 
-/* تصدير CSV */
 $('exportBtn').addEventListener('click', () => {
   const rows = getReqs().slice().sort((a,b) => b.createdAt - a.createdAt);
   if(!rows.length) return alert('لا توجد طلبات للتصدير');
@@ -985,7 +1015,6 @@ $('exportBtn').addEventListener('click', () => {
   URL.revokeObjectURL(a.href);
 });
 
-/* استرجاع الجلسة */
 if(sessionStorage.getItem('aqar_admin') === '1') openAdmin();
 </script>
 </body>
