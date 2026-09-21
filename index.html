@@ -22,22 +22,91 @@ body{
 /* ===== الهيدر ===== */
 .site-header{
   background:linear-gradient(135deg,var(--navy),var(--navy2));
-  color:#fff; padding:38px 20px 70px; text-align:center;
+  color:#fff; padding:44px 20px 78px; text-align:center;
 }
-.site-header h1{font-size:clamp(22px,4vw,32px); font-weight:800; letter-spacing:-.5px}
-.site-header p{color:#b9c7db; margin-top:8px; font-size:15px}
+.site-header h1{font-size:clamp(22px,4vw,34px); font-weight:800; letter-spacing:-.5px}
+.site-header p{color:#b9c7db; margin-top:10px; font-size:15px}
 
-/* ===== الحاوية ===== */
-.wrap{width:min(1000px,100% - 32px); margin:-46px auto 40px; position:relative; z-index:2; flex:1}
+.wrap{width:min(1000px,100% - 32px); margin:-50px auto 40px; position:relative; z-index:2; flex:1}
 
-/* ===== الكرت ===== */
+/* ===== الكروت ===== */
 .card{
   background:#fff; border-radius:18px; padding:26px;
   box-shadow:0 18px 50px rgba(15,37,68,.10);
 }
-.card-title{font-size:19px; font-weight:800; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid #f0f3f8}
+.card-title{
+  font-size:19px; font-weight:800; margin-bottom:20px;
+  padding-bottom:14px; border-bottom:2px solid #f0f3f8;
+  display:flex; align-items:center; gap:10px;
+}
+.card-title::before{
+  content:''; width:5px; height:22px; background:var(--gold); border-radius:3px;
+}
+
+/* ===== كيف يعمل ===== */
+.how{
+  margin: 30px 0;
+  text-align:center;
+}
+.how h2{
+  font-size:24px; font-weight:800; color:var(--ink); margin-bottom:6px;
+}
+.how .sub{color:var(--muted); font-size:14px; margin-bottom:22px}
+.steps{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+}
+.step{
+  background:#fff; border-radius:16px; padding:24px 18px;
+  box-shadow:0 10px 30px rgba(15,37,68,.08);
+  transition:.25s; border:1px solid #eef1f6;
+}
+.step:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(15,37,68,.13)}
+.step-num{
+  width:56px; height:56px; margin:0 auto 14px;
+  display:grid; place-items:center;
+  background:#fdf6e3; color:#8a6a00;
+  border:2px solid #f0e0a8; border-radius:16px;
+  font-size:22px; font-weight:800;
+}
+.step h3{font-size:17px; font-weight:800; margin-bottom:8px; color:var(--ink)}
+.step p{font-size:14px; color:var(--muted); line-height:1.6}
+
+/* ===== اختيار بيع / إيجار ===== */
+.deal-choice{
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  margin-bottom:24px; padding:6px;
+  background:#f4f7fc; border-radius:14px;
+}
+.deal-choice label{
+  position:relative; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px 14px; border-radius:11px;
+  font-size:16px; font-weight:700; color:#5a6a82;
+  transition:.2s; user-select:none;
+  border:2px solid transparent;
+}
+.deal-choice label:hover{color:var(--navy2)}
+.deal-choice input{position:absolute; opacity:0; pointer-events:none}
+.deal-choice label .icon{
+  font-size:20px; line-height:1;
+}
+.deal-choice input:checked + .icon,
+.deal-choice label:has(input:checked){
+  background:#fff; color:var(--navy);
+  border-color:var(--navy2);
+  box-shadow:0 6px 18px rgba(15,37,68,.12);
+}
+.deal-choice label:has(input:checked) .icon{color:var(--gold)}
 
 /* ===== الفورم ===== */
+.section-label{
+  font-size:13px; font-weight:800; color:var(--navy2);
+  letter-spacing:.3px; margin:6px 0 14px;
+  padding-bottom:6px; border-bottom:1px dashed #e3e9f2;
+  display:flex; align-items:center; gap:8px;
+}
+.section-label::before{content:'●'; color:var(--gold); font-size:11px}
+
 .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
 .field{display:flex; flex-direction:column; gap:7px}
 .field.full{grid-column:1/-1}
@@ -91,18 +160,21 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 .admin-head{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:20px}
 .admin-head h2{font-size:20px; font-weight:800}
 .admin-tools{display:flex; flex-wrap:wrap; gap:8px}
-.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px}
 .stat{background:#fff; border-radius:14px; padding:16px; text-align:center; box-shadow:0 8px 22px rgba(15,37,68,.07)}
 .stat b{display:block; font-size:26px; font-weight:800; color:var(--navy2)}
 .stat span{font-size:13px; color:var(--muted); font-weight:600}
-.filters{display:grid; grid-template-columns:1fr 160px 160px; gap:10px; margin-bottom:18px}
+.filters{display:grid; grid-template-columns:1fr 150px 150px 150px; gap:10px; margin-bottom:18px}
 .req{
   background:#fff; border-radius:14px; padding:18px; margin-bottom:14px;
   box-shadow:0 8px 22px rgba(15,37,68,.07); border-right:4px solid var(--gold);
 }
+.req.rent{border-right-color:#2d7fd3}
 .req.done{border-right-color:var(--ok); opacity:.72}
 .req-head{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:14px}
 .badge{font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; background:#eef2f8; color:#33415c}
+.badge.sale{background:#fdf6e3; color:#8a6a00}
+.badge.rent{background:#e3f0fb; color:#1a5fa8}
 .badge.new{background:#fff4d9; color:#8a6a00}
 .badge.ok{background:#e6f7ef; color:var(--ok)}
 .req-date{font-size:12px; color:var(--muted)}
@@ -134,7 +206,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 .modal-actions{display:flex; gap:10px; margin-top:20px}
 .modal-actions button{flex:1}
 
-/* ===== الفوتر + النجمة المخفية ===== */
+/* ===== الفوتر ===== */
 .site-footer{
   background:var(--navy); color:#8fa3bd; text-align:center;
   padding:26px 20px; font-size:13px; position:relative; margin-top:auto;
@@ -149,11 +221,13 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 .star-btn:hover{color:var(--gold); transform:scale(1.25)}
 
 /* ===== جوال ===== */
-@media(max-width:700px){
+@media(max-width:760px){
   .grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .filters{grid-template-columns:1fr}
   .card{padding:20px}
+  .deal-choice{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -167,11 +241,50 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
 <main class="wrap">
 
+  <!-- ===== كيف يعمل ===== -->
+  <section class="how">
+    <h2>كيف يعمل؟</h2>
+    <p class="sub">ثلاث خطوات بسيطة توصلك العقار</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>عبّي النموذج</h3>
+        <p>حدد نوع العقار والمنطقة والميزانية ورقمك.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>نستلم طلبك</h3>
+        <p>يوصلنا طلبك مباشرة ونراجعه فوراً.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>نتواصل معك</h3>
+        <p>نرجع لك بالعروض المتوفرة اللي تناسب طلبك.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== نموذج الطلب ===== -->
   <section class="card" id="formCard">
     <h2 class="card-title">تفاصيل الطلب</h2>
 
     <form id="reqForm" novalidate>
+
+      <!-- اختيار بيع / إيجار -->
+      <div class="deal-choice">
+        <label>
+          <input type="radio" name="deal" value="بيع" checked>
+          <span class="icon">🏷️</span>
+          <span>شراء</span>
+        </label>
+        <label>
+          <input type="radio" name="deal" value="إيجار">
+          <span class="icon">🔑</span>
+          <span>إيجار</span>
+        </label>
+      </div>
+
+      <div class="section-label">بيانات العقار</div>
       <div class="grid">
 
         <div class="field">
@@ -214,8 +327,12 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
           </div>
         </div>
 
+      </div>
+
+      <div class="section-label" style="margin-top:22px">الميزانية المطلوبة</div>
+      <div class="grid">
         <div class="field full">
-          <label>الميزانية / السعر المطلوب (ريال)</label>
+          <label>نطاق السعر (ريال)</label>
           <div class="range">
             <input type="number" id="budgetFrom" min="0" placeholder="من" inputmode="numeric">
             <span class="dash">—</span>
@@ -231,7 +348,10 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
           <label for="details">تفاصيل إضافية</label>
           <textarea id="details" rows="4" placeholder="أي تفاصيل أخرى تود إضافتها..."></textarea>
         </div>
+      </div>
 
+      <div class="section-label" style="margin-top:22px">بيانات التواصل</div>
+      <div class="grid">
         <div class="field">
           <label for="name">الاسم <span class="req">*</span></label>
           <input id="name" placeholder="الاسم الكامل" autocomplete="name">
@@ -241,7 +361,6 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
           <label for="phone">رقم الجوال <span class="req">*</span></label>
           <input id="phone" type="tel" inputmode="tel" placeholder="05xxxxxxxx" autocomplete="tel">
         </div>
-
       </div>
 
       <p class="form-err" id="formErr" hidden></p>
@@ -262,12 +381,18 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
     <div class="stats">
       <div class="stat"><b id="stTotal">0</b><span>إجمالي الطلبات</span></div>
-      <div class="stat"><b id="stNew">0</b><span>طلبات جديدة</span></div>
-      <div class="stat"><b id="stDone">0</b><span>تم التواصل</span></div>
+      <div class="stat"><b id="stSale">0</b><span>طلبات شراء</span></div>
+      <div class="stat"><b id="stRent">0</b><span>طلبات إيجار</span></div>
+      <div class="stat"><b id="stNew">0</b><span>جديدة</span></div>
     </div>
 
     <div class="filters">
       <input id="searchInput" placeholder="ابحث بالاسم أو الجوال أو المدينة أو الحي...">
+      <select id="filterDeal">
+        <option value="">كل العقود</option>
+        <option value="بيع">شراء</option>
+        <option value="إيجار">إيجار</option>
+      </select>
       <select id="filterType">
         <option value="">كل الأنواع</option>
         <option>فيلا</option><option>أرض تجارية</option><option>أرض عادية</option>
@@ -325,25 +450,18 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
 <script>
 /* ============================================================
-   ⚙️ الإعدادات — غيّرها من هنا
+   ⚙️ الإعدادات
    ============================================================ */
-const ADMIN_USER  = 'Majed1417';        // اسم المستخدم
-const ADMIN_PASS  = 'Majed123*';    // كلمة المرور
+const ADMIN_USER  = 'admin';
+const ADMIN_PASS  = 'Aqar@2026';
+const WEBHOOK_URL = ''; // اختياري
 
-/* (اختياري) رابط استقبال الطلبات — Google Apps Script أو Formspree
-   اتركه فارغاً إذا ما تحتاجه. */
-const WEBHOOK_URL = '';
-
-/* ============================================================ */
-
-const LS = 'aqar_requests_v1';
+const LS = 'aqar_requests_v2';
 const $  = id => document.getElementById(id);
 
-/* ---------- تخزين ---------- */
 const getReqs  = () => { try { return JSON.parse(localStorage.getItem(LS)) || []; } catch(e){ return []; } };
 const saveReqs = a  => localStorage.setItem(LS, JSON.stringify(a));
 
-/* ---------- أدوات ---------- */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function fmtDate(ts){
@@ -390,6 +508,7 @@ form.addEventListener('submit', e => {
 
   const fail = m => { formErr.textContent = m; formErr.hidden = false; formErr.scrollIntoView({behavior:'smooth', block:'center'}); };
 
+  const deal  = document.querySelector('input[name="deal"]:checked').value;
   const type  = $('type').value;
   const city  = $('city').value.trim();
   const name  = $('name').value.trim();
@@ -405,7 +524,7 @@ form.addEventListener('submit', e => {
   const req = {
     id: Date.now() + '_' + Math.random().toString(36).slice(2,7),
     createdAt: Date.now(),
-    type, city,
+    deal, type, city,
     district: $('district').value.trim(),
     areaFrom: $('areaFrom').value,
     areaTo:   $('areaTo').value,
@@ -431,6 +550,7 @@ form.addEventListener('submit', e => {
   }
 
   form.reset();
+  document.querySelector('input[name="deal"][value="بيع"]').checked = true;
   $('budgetFrom').disabled = false;
   $('budgetTo').disabled   = false;
   $('successOverlay').classList.remove('hidden');
@@ -491,18 +611,21 @@ function renderAdmin(){
   const all = getReqs().slice().sort((a,b) => b.createdAt - a.createdAt);
 
   $('stTotal').textContent = all.length;
+  $('stSale').textContent  = all.filter(r => r.deal === 'بيع').length;
+  $('stRent').textContent  = all.filter(r => r.deal === 'إيجار').length;
   $('stNew').textContent   = all.filter(r => r.status !== 'done').length;
-  $('stDone').textContent  = all.filter(r => r.status === 'done').length;
 
-  const q = $('searchInput').value.trim().toLowerCase();
+  const q  = $('searchInput').value.trim().toLowerCase();
+  const fd = $('filterDeal').value;
   const ft = $('filterType').value;
   const fs = $('filterStatus').value;
 
   let list = all.filter(r => {
+    if(fd && r.deal !== fd) return false;
     if(ft && r.type !== ft) return false;
     if(fs && (r.status === 'done' ? 'done' : 'new') !== fs) return false;
     if(q){
-      const hay = [r.name, r.phone, r.city, r.district, r.type, r.details].join(' ').toLowerCase();
+      const hay = [r.name, r.phone, r.city, r.district, r.type, r.details, r.deal].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -519,10 +642,13 @@ function renderAdmin(){
     return;
   }
 
-  box.innerHTML = list.map(r => `
-    <div class="req ${r.status === 'done' ? 'done' : ''}" data-id="${r.id}">
+  box.innerHTML = list.map(r => {
+    const dealCls = r.deal === 'إيجار' ? 'rent' : 'sale';
+    return `
+    <div class="req ${r.deal === 'إيجار' ? 'rent' : ''} ${r.status === 'done' ? 'done' : ''}" data-id="${r.id}">
       <div class="req-head">
         <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <span class="badge ${dealCls}">${esc(r.deal)}</span>
           <span class="badge">${esc(r.type)}</span>
           <span class="badge ${r.status === 'done' ? 'ok' : 'new'}">${r.status === 'done' ? 'تم التواصل' : 'جديد'}</span>
         </div>
@@ -547,10 +673,9 @@ function renderAdmin(){
         <button class="btn-sm danger" data-act="del">حذف</button>
       </div>
     </div>
-  `).join('');
+  `}).join('');
 }
 
-/* أحداث اللوحة */
 $('reqList').addEventListener('click', e => {
   const btn = e.target.closest('button[data-act]');
   if(!btn) return;
@@ -574,6 +699,7 @@ $('reqList').addEventListener('click', e => {
 });
 
 $('searchInput').addEventListener('input', renderAdmin);
+$('filterDeal').addEventListener('change', renderAdmin);
 $('filterType').addEventListener('change', renderAdmin);
 $('filterStatus').addEventListener('change', renderAdmin);
 $('refreshBtn').addEventListener('click', renderAdmin);
@@ -583,7 +709,7 @@ $('exportBtn').addEventListener('click', () => {
   const rows = getReqs().slice().sort((a,b) => b.createdAt - a.createdAt);
   if(!rows.length) return alert('لا توجد طلبات للتصدير');
 
-  const head = ['التاريخ','نوع العقار','المدينة','الحي','المساحة من','المساحة إلى',
+  const head = ['التاريخ','العقد','نوع العقار','المدينة','الحي','المساحة من','المساحة إلى',
                 'الميزانية من','الميزانية إلى','ميزانية مفتوحة','تفاصيل إضافية',
                 'الاسم','رقم الجوال','الحالة'];
 
@@ -591,7 +717,7 @@ $('exportBtn').addEventListener('click', () => {
 
   rows.forEach(r => {
     const c = [
-      fmtDate(r.createdAt), r.type, r.city, r.district,
+      fmtDate(r.createdAt), r.deal, r.type, r.city, r.district,
       r.areaFrom, r.areaTo,
       r.budgetOpen ? '' : r.budgetFrom,
       r.budgetOpen ? '' : r.budgetTo,
@@ -610,7 +736,7 @@ $('exportBtn').addEventListener('click', () => {
   URL.revokeObjectURL(a.href);
 });
 
-/* ---------- استرجاع الجلسة ---------- */
+/* استرجاع الجلسة */
 if(sessionStorage.getItem('aqar_admin') === '1') openAdmin();
 </script>
 </body>
