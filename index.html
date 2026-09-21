@@ -21,7 +21,7 @@ body{
 .hidden{display:none !important}
 
 /* ============================================================
-   الهيدر — حركة تسويقية
+   الهيدر
    ============================================================ */
 .site-header{
   position:relative; overflow:hidden;
@@ -34,8 +34,6 @@ body{
   0%,100%{background-position:0% 50%}
   50%{background-position:100% 50%}
 }
-
-/* أشكال طايرة في الخلفية */
 .site-header::before,
 .site-header::after{
   content:''; position:absolute; border-radius:50%;
@@ -61,15 +59,10 @@ body{
   0%,100%{transform:translate(0,0) scale(1)}
   50%{transform:translate(-50px,-25px) scale(1.1)}
 }
-
-/* نقاط نجمية صغيرة */
-.stars-bg{
-  position:absolute; inset:0; overflow:hidden; pointer-events:none;
-}
+.stars-bg{position:absolute; inset:0; overflow:hidden; pointer-events:none}
 .stars-bg span{
   position:absolute; width:2px; height:2px; background:#fff;
-  border-radius:50%; opacity:.35;
-  animation:twinkle 4s infinite;
+  border-radius:50%; opacity:.35; animation:twinkle 4s infinite;
 }
 .stars-bg span:nth-child(1){top:20%; left:15%; animation-delay:0s}
 .stars-bg span:nth-child(2){top:60%; left:25%; animation-delay:.8s}
@@ -81,8 +74,6 @@ body{
   0%,100%{opacity:.15; transform:scale(1)}
   50%{opacity:.85; transform:scale(1.6)}
 }
-
-/* شارة علوية */
 .top-badge{
   position:relative; z-index:2;
   display:inline-flex; align-items:center; gap:7px;
@@ -91,25 +82,14 @@ body{
   color:#f0d98a;
   padding:6px 14px; border-radius:99px;
   font-size:12px; font-weight:700; letter-spacing:.3px;
-  margin-bottom:16px;
-  backdrop-filter:blur(6px);
-  animation:badgePulse 3s ease-in-out infinite;
+  margin-bottom:16px; backdrop-filter:blur(6px);
 }
 .top-badge::before{
   content:''; width:7px; height:7px; border-radius:50%;
   background:#4ade80; box-shadow:0 0 8px #4ade80;
   animation:dot 1.6s ease-in-out infinite;
 }
-@keyframes dot{
-  0%,100%{opacity:1}
-  50%{opacity:.35}
-}
-@keyframes badgePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(201,162,39,.0)}
-  50%{box-shadow:0 0 0 8px rgba(201,162,39,.0)}
-}
-
-/* العنوان مع وميض ذهبي */
+@keyframes dot{0%,100%{opacity:1}50%{opacity:.35}}
 .site-header h1{
   position:relative; z-index:2;
   font-size:clamp(24px,4.5vw,38px); font-weight:900;
@@ -124,14 +104,11 @@ body{
   0%{background-position:200% center}
   100%{background-position:-200% center}
 }
-
 .site-header p{
   position:relative; z-index:2;
   color:#b9c7db; margin-top:12px; font-size:15px;
   max-width:520px; margin-left:auto; margin-right:auto;
 }
-
-/* مؤشرات صغيرة تحت العنوان */
 .header-chips{
   position:relative; z-index:2;
   display:flex; flex-wrap:wrap; justify-content:center; gap:8px;
@@ -149,32 +126,23 @@ body{
 .wrap{width:min(1000px,100% - 32px); margin:-56px auto 40px; position:relative; z-index:3; flex:1}
 
 /* ============================================================
-   كيف يعمل — نسخة مضغوطة
+   كيف يعمل — مضغوط
    ============================================================ */
-.how{
-  margin: 0 0 22px;
-  text-align:center;
-}
+.how{margin:0 0 22px; text-align:center}
 .how h2{
   font-size:18px; font-weight:800; color:var(--ink);
   margin-bottom:4px; display:inline-flex; align-items:center; gap:8px;
 }
 .how h2::before,
-.how h2::after{
-  content:''; height:1px; width:28px; background:#c9d3e2;
-}
+.how h2::after{content:''; height:1px; width:28px; background:#c9d3e2}
 .how .sub{color:var(--muted); font-size:12.5px; margin-bottom:14px}
-
-.steps{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
-}
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
 .step{
   background:#fff; border-radius:13px; padding:14px 12px;
   box-shadow:0 6px 18px rgba(15,37,68,.06);
   border:1px solid #eef1f6;
   display:flex; align-items:center; gap:11px;
-  text-align:right;
-  transition:.25s;
+  text-align:right; transition:.25s;
 }
 .step:hover{
   transform:translateY(-3px);
@@ -182,25 +150,17 @@ body{
   border-color:#e3d7a4;
 }
 .step-num{
-  flex:none;
-  width:38px; height:38px;
+  flex:none; width:38px; height:38px;
   display:grid; place-items:center;
   background:linear-gradient(135deg,#fdf6e3,#f8ecc4);
   color:#8a6a00; border:1.5px solid #f0e0a8;
-  border-radius:11px;
-  font-size:16px; font-weight:900;
+  border-radius:11px; font-size:16px; font-weight:900;
 }
-.step-txt h3{
-  font-size:13.5px; font-weight:800;
-  color:var(--ink); margin-bottom:1px; line-height:1.35;
-}
-.step-txt p{
-  font-size:11.5px; color:var(--muted);
-  line-height:1.5; margin:0;
-}
+.step-txt h3{font-size:13.5px; font-weight:800; color:var(--ink); margin-bottom:1px; line-height:1.35}
+.step-txt p{font-size:11.5px; color:var(--muted); line-height:1.5; margin:0}
 
 /* ============================================================
-   الكروت العامة
+   كروت عامة
    ============================================================ */
 .card{
   background:#fff; border-radius:18px; padding:26px;
@@ -220,7 +180,7 @@ body{
    ============================================================ */
 .deal-choice{
   display:grid; grid-template-columns:1fr 1fr; gap:12px;
-  margin-bottom:22px; padding:6px;
+  margin-bottom:26px; padding:6px;
   background:#f4f7fc; border-radius:14px;
 }
 .deal-choice label{
@@ -241,7 +201,7 @@ body{
 }
 
 /* ============================================================
-   الفورم
+   ★ بطاقات نوع العقار (مصوّرة)
    ============================================================ */
 .section-label{
   font-size:13px; font-weight:800; color:var(--navy2);
@@ -251,6 +211,72 @@ body{
 }
 .section-label::before{content:'●'; color:var(--gold); font-size:11px}
 
+.type-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-bottom:22px;
+}
+.type-card{
+  position:relative;
+  cursor:pointer;
+  background:#fbfcfe;
+  border:2px solid var(--line);
+  border-radius:14px;
+  padding:14px 8px 11px;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  transition:.22s;
+  user-select:none;
+  overflow:hidden;
+}
+.type-card input{position:absolute; opacity:0; pointer-events:none}
+.type-card .img{
+  width:56px; height:56px;
+  display:grid; place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,#eef3fb,#e0e9f6);
+  transition:.25s;
+}
+.type-card .img svg{
+  width:32px; height:32px;
+  stroke:var(--navy2); stroke-width:1.7; fill:none;
+  stroke-linecap:round; stroke-linejoin:round;
+  transition:.25s;
+}
+.type-card .name{
+  font-size:12.5px; font-weight:800; color:#33415c;
+  text-align:center; line-height:1.2;
+}
+.type-card:hover{
+  border-color:#b9c7db;
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px rgba(15,37,68,.08);
+}
+.type-card:has(input:checked){
+  border-color:var(--gold);
+  background:#fffdf5;
+  box-shadow:0 10px 22px rgba(201,162,39,.20);
+}
+.type-card:has(input:checked) .img{
+  background:linear-gradient(135deg,#fdf6e3,#f5e6b3);
+  transform:scale(1.05);
+}
+.type-card:has(input:checked) .img svg{
+  stroke:#8a6a00;
+}
+.type-card:has(input:checked)::after{
+  content:'✓';
+  position:absolute; top:6px; left:6px;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--gold); color:#fff;
+  font-size:11px; font-weight:900;
+  display:grid; place-items:center;
+  box-shadow:0 2px 6px rgba(201,162,39,.5);
+}
+
+/* ============================================================
+   الفورم
+   ============================================================ */
 .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
 .field{display:flex; flex-direction:column; gap:7px}
 .field.full{grid-column:1/-1}
@@ -282,8 +308,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 .btn-primary::after{
   content:''; position:absolute; inset:0;
   background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);
-  transform:translateX(-100%);
-  transition:transform .7s;
+  transform:translateX(-100%); transition:transform .7s;
 }
 .btn-primary:hover::after{transform:translateX(100%)}
 .btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(15,37,68,.30)}
@@ -391,25 +416,26 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
   .card{padding:20px}
   .deal-choice{grid-template-columns:1fr 1fr}
   .site-header{padding:40px 18px 78px}
+  .type-grid{grid-template-columns:repeat(3,1fr)}
+  .type-card .img{width:48px; height:48px}
+  .type-card .img svg{width:26px; height:26px}
+}
+@media(max-width:420px){
+  .type-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body>
 
-<!-- ===== الهيدر التسويقي ===== -->
+<!-- ===== الهيدر ===== -->
 <header class="site-header">
   <div class="stars-bg">
     <span></span><span></span><span></span>
     <span></span><span></span><span></span>
   </div>
-
-  <div class="top-badge">
-    متاح الآن — استقبال الطلبات
-  </div>
-
+  <div class="top-badge">متاح الآن — استقبال الطلبات</div>
   <h1>منصة طلب العقار</h1>
   <p>أرسل طلبك الآن وسيتم التواصل معك في أقرب وقت</p>
-
   <div class="header-chips">
     <span>⚡ رد <b>سريع</b></span>
     <span>🏠 عروض <b>مختارة</b></span>
@@ -419,7 +445,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
 <main class="wrap">
 
-  <!-- ===== كيف يعمل (مضغوط) ===== -->
+  <!-- ===== كيف يعمل ===== -->
   <section class="how">
     <h2>كيف يعمل؟</h2>
     <p class="sub">ثلاث خطوات بسيطة توصلك العقار</p>
@@ -454,6 +480,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
 
     <form id="reqForm" novalidate>
 
+      <!-- بيع / إيجار -->
       <div class="deal-choice">
         <label>
           <input type="radio" name="deal" value="بيع" checked>
@@ -467,20 +494,61 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
         </label>
       </div>
 
+      <!-- نوع العقار (بطاقات مصوّرة) -->
+      <div class="section-label">نوع العقار <span class="req" style="margin-right:6px">*</span></div>
+      <div class="type-grid" id="typeGrid">
+        <label class="type-card">
+          <input type="radio" name="type" value="فيلا">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>
+          </div>
+          <span class="name">فيلا</span>
+        </label>
+
+        <label class="type-card">
+          <input type="radio" name="type" value="شقة">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><path d="M4 21V7l8-4v18"/><path d="M12 9l8 3v9"/><path d="M7 10h.01M7 14h.01M7 18h.01M16 13h.01M16 17h.01"/></svg>
+          </div>
+          <span class="name">شقة</span>
+        </label>
+
+        <label class="type-card">
+          <input type="radio" name="type" value="أرض تجارية">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>
+          </div>
+          <span class="name">أرض تجارية</span>
+        </label>
+
+        <label class="type-card">
+          <input type="radio" name="type" value="أرض عادية">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M3 14l4-3 3 2 4-4 7 5"/><circle cx="8" cy="10" r="1.3"/></svg>
+          </div>
+          <span class="name">أرض عادية</span>
+        </label>
+
+        <label class="type-card">
+          <input type="radio" name="type" value="أرض خام">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><path d="M3 20l6-11 4 6 3-4 5 9z"/><path d="M3 20h18"/><circle cx="17" cy="6" r="1.5"/></svg>
+          </div>
+          <span class="name">أرض خام</span>
+        </label>
+
+        <label class="type-card">
+          <input type="radio" name="type" value="مزرعة">
+          <div class="img">
+            <svg viewBox="0 0 24 24"><path d="M12 21V8"/><path d="M12 8c0-3 2-5 5-5 0 3-2 5-5 5z"/><path d="M12 12c0-3-2-5-5-5 0 3 2 5 5 5z"/><path d="M4 21h16"/></svg>
+          </div>
+          <span class="name">مزرعة</span>
+        </label>
+      </div>
+
+      <!-- بيانات العقار -->
       <div class="section-label">بيانات العقار</div>
       <div class="grid">
-        <div class="field">
-          <label for="type">نوع العقار <span class="req">*</span></label>
-          <select id="type">
-            <option value="">اختر نوع العقار</option>
-            <option>فيلا</option>
-            <option>أرض تجارية</option>
-            <option>أرض عادية</option>
-            <option>مزرعة</option>
-            <option>شقة</option>
-          </select>
-        </div>
-
         <div class="field">
           <label for="city">المدينة <span class="req">*</span></label>
           <input id="city" list="cities" placeholder="مثال: الرياض" autocomplete="off">
@@ -500,7 +568,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
           <input id="district" placeholder="مثال: النرجس">
         </div>
 
-        <div class="field">
+        <div class="field full">
           <label>المساحة (م²)</label>
           <div class="range">
             <input type="number" id="areaFrom" min="0" placeholder="من" inputmode="numeric">
@@ -575,8 +643,9 @@ select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%
       </select>
       <select id="filterType">
         <option value="">كل الأنواع</option>
-        <option>فيلا</option><option>أرض تجارية</option><option>أرض عادية</option>
-        <option>مزرعة</option><option>شقة</option>
+        <option>فيلا</option><option>شقة</option>
+        <option>أرض تجارية</option><option>أرض عادية</option>
+        <option>أرض خام</option><option>مزرعة</option>
       </select>
       <select id="filterStatus">
         <option value="">كل الحالات</option>
@@ -636,7 +705,7 @@ const ADMIN_USER  = 'Majed1417';
 const ADMIN_PASS  = 'Majed123*';
 const WEBHOOK_URL = '';
 
-const LS = 'aqar_requests_v2';
+const LS = 'aqar_requests_v3';
 const $  = id => document.getElementById(id);
 
 const getReqs  = () => { try { return JSON.parse(localStorage.getItem(LS)) || []; } catch(e){ return []; } };
@@ -650,7 +719,6 @@ function fmtDate(ts){
   const time = d.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
   return date + ' — ' + time;
 }
-
 function fmtRange(a, b, unit){
   a = (a ?? '').toString(); b = (b ?? '').toString();
   if(!a && !b) return '—';
@@ -658,7 +726,6 @@ function fmtRange(a, b, unit){
   if(a)        return `من ${a} ${unit}`;
   return `إلى ${b} ${unit}`;
 }
-
 function waLink(p){
   let d = String(p).replace(/\D/g,'');
   if(d.startsWith('966'))      d = d;
@@ -689,17 +756,18 @@ form.addEventListener('submit', e => {
   const fail = m => { formErr.textContent = m; formErr.hidden = false; formErr.scrollIntoView({behavior:'smooth', block:'center'}); };
 
   const deal  = document.querySelector('input[name="deal"]:checked').value;
-  const type  = $('type').value;
+  const typeEl = document.querySelector('input[name="type"]:checked');
   const city  = $('city').value.trim();
   const name  = $('name').value.trim();
   const phone = $('phone').value.trim();
 
-  if(!type)  return fail('الرجاء اختيار نوع العقار');
-  if(!city)  return fail('الرجاء إدخال المدينة');
-  if(!name)  return fail('الرجاء إدخال الاسم');
+  if(!typeEl) return fail('الرجاء اختيار نوع العقار');
+  if(!city)   return fail('الرجاء إدخال المدينة');
+  if(!name)   return fail('الرجاء إدخال الاسم');
   if(!/^[0-9+\s\-]{9,15}$/.test(phone)) return fail('الرجاء إدخال رقم جوال صحيح');
 
   const budgetOpen = $('budgetOpen').checked;
+  const type = typeEl.value;
 
   const req = {
     id: Date.now() + '_' + Math.random().toString(36).slice(2,7),
@@ -731,6 +799,8 @@ form.addEventListener('submit', e => {
 
   form.reset();
   document.querySelector('input[name="deal"][value="بيع"]').checked = true;
+  // إلغاء اختيار نوع العقار بعد الإرسال
+  document.querySelectorAll('input[name="type"]').forEach(el => el.checked = false);
   $('budgetFrom').disabled = false;
   $('budgetTo').disabled   = false;
   $('successOverlay').classList.remove('hidden');
@@ -751,7 +821,6 @@ $('starBtn').addEventListener('click', () => {
   $('loginPass').value = '';
   setTimeout(() => $('loginUser').focus(), 60);
 });
-
 $('loginCancel').addEventListener('click', () => $('loginModal').classList.add('hidden'));
 
 function doLogin(){
