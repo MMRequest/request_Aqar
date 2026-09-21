@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة طلب العقار</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2544; --navy2:#173a66; --gold:#c9a227;
+  --ink:#16233a; --muted:#6b7789; --line:#dde3ec;
+  --bg:#eef1f6; --ok:#12855b; --danger:#c0392b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Tajawal',system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--bg); color:var(--ink); line-height:1.7;
+  min-height:100vh; display:flex; flex-direction:column;
+}
+.hidden{display:none !important}
+
+/* ===== الهيدر ===== */
+.site-header{
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  color:#fff; padding:38px 20px 70px; text-align:center;
+}
+.site-header h1{font-size:clamp(22px,4vw,32px); font-weight:800; letter-spacing:-.5px}
+.site-header p{color:#b9c7db; margin-top:8px; font-size:15px}
+
+/* ===== الحاوية ===== */
+.wrap{width:min(1000px,100% - 32px); margin:-46px auto 40px; position:relative; z-index:2; flex:1}
+
+/* ===== الكرت ===== */
+.card{
+  background:#fff; border-radius:18px; padding:26px;
+  box-shadow:0 18px 50px rgba(15,37,68,.10);
+}
+.card-title{font-size:19px; font-weight:800; margin-bottom:20px; padding-bottom:14px; border-bottom:2px solid #f0f3f8}
+
+/* ===== الفورم ===== */
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.field{display:flex; flex-direction:column; gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:14px; font-weight:700; color:#33415c}
+.req{color:var(--danger)}
+input,select,textarea{
+  width:100%; font-family:inherit; font-size:15px; color:var(--ink);
+  padding:12px 14px; border:1.5px solid var(--line); border-radius:11px;
+  background:#fbfcfe; transition:.18s; outline:none;
+}
+textarea{resize:vertical; min-height:96px}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--navy2); background:#fff; box-shadow:0 0 0 4px rgba(23,58,102,.10);
+}
+input:disabled{background:#f0f2f5; color:#9aa5b6; cursor:not-allowed}
+select{appearance:none; background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7789' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:left 14px center; padding-left:38px}
+.range{display:flex; align-items:center; gap:9px}
+.range .dash{color:#b6c0cf; font-weight:700}
+.check{display:flex; align-items:center; gap:9px; margin-top:10px; cursor:pointer; font-size:14px; font-weight:500; color:#33415c; user-select:none}
+.check input{width:19px; height:19px; accent-color:var(--navy2); flex:none; cursor:pointer}
+.form-err{color:var(--danger); background:#fdecea; border:1px solid #f7c9c4; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; margin-top:16px}
+.btn-primary{
+  width:100%; margin-top:22px; padding:15px; font-family:inherit; font-size:17px; font-weight:800;
+  color:#fff; background:linear-gradient(135deg,var(--navy),var(--navy2));
+  border:none; border-radius:12px; cursor:pointer; transition:.2s;
+  box-shadow:0 10px 24px rgba(15,37,68,.22);
+}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px rgba(15,37,68,.30)}
+.btn-primary:active{transform:translateY(0)}
+
+/* ===== نجاح ===== */
+.success-overlay{
+  position:fixed; inset:0; background:rgba(10,20,35,.62); backdrop-filter:blur(5px);
+  display:grid; place-items:center; z-index:200; padding:18px;
+}
+.success-card{
+  background:#fff; border-radius:20px; padding:36px 28px; text-align:center;
+  width:min(400px,100%); box-shadow:0 30px 70px rgba(0,0,0,.35);
+  animation:pop .35s cubic-bezier(.2,1.3,.5,1);
+}
+@keyframes pop{from{transform:scale(.85); opacity:0}to{transform:scale(1); opacity:1}}
+.check-circle{
+  width:88px; height:88px; border-radius:50%; background:#e6f7ef;
+  display:grid; place-items:center; margin:0 auto 20px;
+}
+.check-circle svg{width:46px; height:46px; stroke:var(--ok); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round}
+.success-card h3{font-size:22px; font-weight:800; color:var(--ok); margin-bottom:8px}
+.success-card p{color:var(--muted); font-size:15px; margin-bottom:24px}
+
+/* ===== لوحة التحكم ===== */
+.admin-head{display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-bottom:20px}
+.admin-head h2{font-size:20px; font-weight:800}
+.admin-tools{display:flex; flex-wrap:wrap; gap:8px}
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px}
+.stat{background:#fff; border-radius:14px; padding:16px; text-align:center; box-shadow:0 8px 22px rgba(15,37,68,.07)}
+.stat b{display:block; font-size:26px; font-weight:800; color:var(--navy2)}
+.stat span{font-size:13px; color:var(--muted); font-weight:600}
+.filters{display:grid; grid-template-columns:1fr 160px 160px; gap:10px; margin-bottom:18px}
+.req{
+  background:#fff; border-radius:14px; padding:18px; margin-bottom:14px;
+  box-shadow:0 8px 22px rgba(15,37,68,.07); border-right:4px solid var(--gold);
+}
+.req.done{border-right-color:var(--ok); opacity:.72}
+.req-head{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; align-items:center; margin-bottom:14px}
+.badge{font-size:12px; font-weight:700; padding:4px 11px; border-radius:20px; background:#eef2f8; color:#33415c}
+.badge.new{background:#fff4d9; color:#8a6a00}
+.badge.ok{background:#e6f7ef; color:var(--ok)}
+.req-date{font-size:12px; color:var(--muted)}
+.req-body{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px}
+.kv{background:#f7f9fc; border-radius:9px; padding:9px 12px}
+.kv span{display:block; font-size:12px; color:var(--muted); font-weight:600}
+.kv b{font-size:14px; font-weight:700}
+.req-details{margin-top:12px; font-size:14px; color:#4a5768; background:#f7f9fc; border-radius:9px; padding:11px 14px; white-space:pre-wrap}
+.req-actions{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; padding-top:14px; border-top:1px solid #eef1f6}
+.btn-sm{
+  font-family:inherit; font-size:13px; font-weight:700; padding:8px 15px; border-radius:9px;
+  border:1.5px solid var(--line); background:#fff; color:#33415c; cursor:pointer;
+  text-decoration:none; transition:.15s;
+}
+.btn-sm:hover{background:#f2f5fa; border-color:#c4cddb}
+.btn-sm.wa{background:#e6f7ef; border-color:#b9e6d2; color:#0a6b48}
+.btn-sm.danger{background:#fdecea; border-color:#f7c9c4; color:var(--danger)}
+.empty{text-align:center; padding:60px 20px; color:var(--muted)}
+.empty svg{width:60px; height:60px; stroke:#c4cddb; stroke-width:2; fill:none; margin-bottom:14px}
+
+/* ===== تسجيل الدخول ===== */
+.modal{
+  position:fixed; inset:0; background:rgba(10,20,35,.65); backdrop-filter:blur(5px);
+  display:grid; place-items:center; z-index:300; padding:18px;
+}
+.modal-card{background:#fff; border-radius:18px; padding:28px; width:min(380px,100%); box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.modal-card h3{font-size:19px; font-weight:800; margin-bottom:20px; text-align:center}
+.modal-card .field{margin-bottom:14px}
+.modal-actions{display:flex; gap:10px; margin-top:20px}
+.modal-actions button{flex:1}
+
+/* ===== الفوتر + النجمة المخفية ===== */
+.site-footer{
+  background:var(--navy); color:#8fa3bd; text-align:center;
+  padding:26px 20px; font-size:13px; position:relative; margin-top:auto;
+}
+.star-btn{
+  position:absolute; left:14px; bottom:10px;
+  background:none; border:none; cursor:pointer;
+  font-size:15px; line-height:1; padding:6px;
+  color:rgba(255,255,255,.07);
+  transition:color .25s, transform .25s;
+}
+.star-btn:hover{color:var(--gold); transform:scale(1.25)}
+
+/* ===== جوال ===== */
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .filters{grid-template-columns:1fr}
+  .card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== الهيدر ===== -->
+<header class="site-header">
+  <h1>منصة طلب العقار</h1>
+  <p>أرسل طلبك الآن وسيتم التواصل معك في أقرب وقت</p>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== نموذج الطلب ===== -->
+  <section class="card" id="formCard">
+    <h2 class="card-title">تفاصيل الطلب</h2>
+
+    <form id="reqForm" novalidate>
+      <div class="grid">
+
+        <div class="field">
+          <label for="type">نوع العقار <span class="req">*</span></label>
+          <select id="type">
+            <option value="">اختر نوع العقار</option>
+            <option>فيلا</option>
+            <option>أرض تجارية</option>
+            <option>أرض عادية</option>
+            <option>مزرعة</option>
+            <option>شقة</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="city">المدينة <span class="req">*</span></label>
+          <input id="city" list="cities" placeholder="مثال: الرياض" autocomplete="off">
+          <datalist id="cities">
+            <option>الرياض</option><option>جدة</option><option>مكة المكرمة</option>
+            <option>المدينة المنورة</option><option>الدمام</option><option>الخبر</option>
+            <option>الظهران</option><option>الأحساء</option><option>الطائف</option>
+            <option>بريدة</option><option>تبوك</option><option>حائل</option>
+            <option>أبها</option><option>خميس مشيط</option><option>نجران</option>
+            <option>جيزان</option><option>الباحة</option><option>الجوف</option>
+            <option>ينبع</option><option>الجبيل</option><option>عرعر</option>
+          </datalist>
+        </div>
+
+        <div class="field">
+          <label for="district">الحي</label>
+          <input id="district" placeholder="مثال: النرجس">
+        </div>
+
+        <div class="field">
+          <label>المساحة (م²)</label>
+          <div class="range">
+            <input type="number" id="areaFrom" min="0" placeholder="من" inputmode="numeric">
+            <span class="dash">—</span>
+            <input type="number" id="areaTo" min="0" placeholder="إلى" inputmode="numeric">
+          </div>
+        </div>
+
+        <div class="field full">
+          <label>الميزانية / السعر المطلوب (ريال)</label>
+          <div class="range">
+            <input type="number" id="budgetFrom" min="0" placeholder="من" inputmode="numeric">
+            <span class="dash">—</span>
+            <input type="number" id="budgetTo" min="0" placeholder="إلى" inputmode="numeric">
+          </div>
+          <label class="check">
+            <input type="checkbox" id="budgetOpen">
+            <span>الميزانية مفتوحة — أبحث عن أفضل عقار متاح</span>
+          </label>
+        </div>
+
+        <div class="field full">
+          <label for="details">تفاصيل إضافية</label>
+          <textarea id="details" rows="4" placeholder="أي تفاصيل أخرى تود إضافتها..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="name">الاسم <span class="req">*</span></label>
+          <input id="name" placeholder="الاسم الكامل" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="phone">رقم الجوال <span class="req">*</span></label>
+          <input id="phone" type="tel" inputmode="tel" placeholder="05xxxxxxxx" autocomplete="tel">
+        </div>
+
+      </div>
+
+      <p class="form-err" id="formErr" hidden></p>
+      <button class="btn-primary" type="submit">إرسال الطلب</button>
+    </form>
+  </section>
+
+  <!-- ===== لوحة الطلبات (مخفية) ===== -->
+  <section id="adminPanel" class="hidden">
+    <div class="admin-head">
+      <h2>لوحة الطلبات</h2>
+      <div class="admin-tools">
+        <button class="btn-sm" id="exportBtn">تصدير Excel (CSV)</button>
+        <button class="btn-sm" id="refreshBtn">تحديث</button>
+        <button class="btn-sm danger" id="logoutBtn">خروج</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="stTotal">0</b><span>إجمالي الطلبات</span></div>
+      <div class="stat"><b id="stNew">0</b><span>طلبات جديدة</span></div>
+      <div class="stat"><b id="stDone">0</b><span>تم التواصل</span></div>
+    </div>
+
+    <div class="filters">
+      <input id="searchInput" placeholder="ابحث بالاسم أو الجوال أو المدينة أو الحي...">
+      <select id="filterType">
+        <option value="">كل الأنواع</option>
+        <option>فيلا</option><option>أرض تجارية</option><option>أرض عادية</option>
+        <option>مزرعة</option><option>شقة</option>
+      </select>
+      <select id="filterStatus">
+        <option value="">كل الحالات</option>
+        <option value="new">جديد</option>
+        <option value="done">تم التواصل</option>
+      </select>
+    </div>
+
+    <div id="reqList"></div>
+  </section>
+
+</main>
+
+<!-- ===== الفوتر ===== -->
+<footer class="site-footer">
+  <p>© <span id="year"></span> منصة طلب العقار — جميع الحقوق محفوظة</p>
+  <button class="star-btn" id="starBtn" aria-label="★">★</button>
+</footer>
+
+<!-- ===== شاشة النجاح ===== -->
+<div class="success-overlay hidden" id="successOverlay">
+  <div class="success-card">
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h3>تم رفع الطلب بنجاح</h3>
+    <p>سيتم التواصل معك في أقرب وقت ممكن</p>
+    <button class="btn-primary" id="successClose">إرسال طلب آخر</button>
+  </div>
+</div>
+
+<!-- ===== نافذة تسجيل الدخول ===== -->
+<div class="modal hidden" id="loginModal">
+  <div class="modal-card">
+    <h3>تسجيل الدخول</h3>
+    <div class="field">
+      <label for="loginUser">اسم المستخدم</label>
+      <input id="loginUser" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="loginPass">كلمة المرور</label>
+      <input id="loginPass" type="password" autocomplete="off">
+    </div>
+    <p class="form-err" id="loginErr" hidden></p>
+    <div class="modal-actions">
+      <button class="btn-primary" id="loginBtn" style="margin-top:0">دخول</button>
+      <button class="btn-sm" id="loginCancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ⚙️ الإعدادات — غيّرها من هنا
+   ============================================================ */
+const ADMIN_USER  = 'admin';        // اسم المستخدم
+const ADMIN_PASS  = 'Aqar@2026';    // كلمة المرور
+
+/* (اختياري) رابط استقبال الطلبات — Google Apps Script أو Formspree
+   اتركه فارغاً إذا ما تحتاجه. */
+const WEBHOOK_URL = '';
+
+/* ============================================================ */
+
+const LS = 'aqar_requests_v1';
+const $  = id => document.getElementById(id);
+
+/* ---------- تخزين ---------- */
+const getReqs  = () => { try { return JSON.parse(localStorage.getItem(LS)) || []; } catch(e){ return []; } };
+const saveReqs = a  => localStorage.setItem(LS, JSON.stringify(a));
+
+/* ---------- أدوات ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function fmtDate(ts){
+  const d = new Date(ts);
+  const date = d.toLocaleDateString('ar-EG', {year:'numeric', month:'2-digit', day:'2-digit'});
+  const time = d.toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
+  return date + ' — ' + time;
+}
+
+function fmtRange(a, b, unit){
+  a = (a ?? '').toString(); b = (b ?? '').toString();
+  if(!a && !b) return '—';
+  if(a && b)   return `${a} - ${b} ${unit}`;
+  if(a)        return `من ${a} ${unit}`;
+  return `إلى ${b} ${unit}`;
+}
+
+function waLink(p){
+  let d = String(p).replace(/\D/g,'');
+  if(d.startsWith('966'))      d = d;
+  else if(d.startsWith('05'))  d = '966' + d.slice(1);
+  else if(d.startsWith('5') && d.length === 9) d = '966' + d;
+  return 'https://wa.me/' + d;
+}
+
+$('year').textContent = new Date().getFullYear();
+
+/* ============================================================
+   الفورم
+   ============================================================ */
+const form = $('reqForm');
+const formErr = $('formErr');
+
+$('budgetOpen').addEventListener('change', e => {
+  const open = e.target.checked;
+  $('budgetFrom').disabled = open;
+  $('budgetTo').disabled   = open;
+  if(open){ $('budgetFrom').value = ''; $('budgetTo').value = ''; }
+});
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  formErr.hidden = true;
+
+  const fail = m => { formErr.textContent = m; formErr.hidden = false; formErr.scrollIntoView({behavior:'smooth', block:'center'}); };
+
+  const type  = $('type').value;
+  const city  = $('city').value.trim();
+  const name  = $('name').value.trim();
+  const phone = $('phone').value.trim();
+
+  if(!type)  return fail('الرجاء اختيار نوع العقار');
+  if(!city)  return fail('الرجاء إدخال المدينة');
+  if(!name)  return fail('الرجاء إدخال الاسم');
+  if(!/^[0-9+\s\-]{9,15}$/.test(phone)) return fail('الرجاء إدخال رقم جوال صحيح');
+
+  const budgetOpen = $('budgetOpen').checked;
+
+  const req = {
+    id: Date.now() + '_' + Math.random().toString(36).slice(2,7),
+    createdAt: Date.now(),
+    type, city,
+    district: $('district').value.trim(),
+    areaFrom: $('areaFrom').value,
+    areaTo:   $('areaTo').value,
+    budgetFrom: budgetOpen ? '' : $('budgetFrom').value,
+    budgetTo:   budgetOpen ? '' : $('budgetTo').value,
+    budgetOpen,
+    details: $('details').value.trim(),
+    name, phone,
+    status: 'new'
+  };
+
+  const all = getReqs();
+  all.push(req);
+  saveReqs(all);
+
+  if(WEBHOOK_URL){
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(req)
+    }).catch(()=>{});
+  }
+
+  form.reset();
+  $('budgetFrom').disabled = false;
+  $('budgetTo').disabled   = false;
+  $('successOverlay').classList.remove('hidden');
+});
+
+$('successClose').addEventListener('click', () => {
+  $('successOverlay').classList.add('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* ============================================================
+   ★ تسجيل الدخول
+   ============================================================ */
+$('starBtn').addEventListener('click', () => {
+  $('loginModal').classList.remove('hidden');
+  $('loginErr').hidden = true;
+  $('loginUser').value = '';
+  $('loginPass').value = '';
+  setTimeout(() => $('loginUser').focus(), 60);
+});
+
+$('loginCancel').addEventListener('click', () => $('loginModal').classList.add('hidden'));
+
+function doLogin(){
+  const u = $('loginUser').value.trim();
+  const p = $('loginPass').value;
+  if(u === ADMIN_USER && p === ADMIN_PASS){
+    sessionStorage.setItem('aqar_admin', '1');
+    $('loginModal').classList.add('hidden');
+    openAdmin();
+  } else {
+    $('loginErr').textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
+    $('loginErr').hidden = false;
+  }
+}
+$('loginBtn').addEventListener('click', doLogin);
+$('loginPass').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+$('loginUser').addEventListener('keydown', e => { if(e.key === 'Enter') doLogin(); });
+
+$('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('aqar_admin');
+  $('adminPanel').classList.add('hidden');
+  $('formCard').classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+/* ============================================================
+   لوحة الطلبات
+   ============================================================ */
+function openAdmin(){
+  $('formCard').classList.add('hidden');
+  $('adminPanel').classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+  renderAdmin();
+}
+
+function renderAdmin(){
+  const all = getReqs().slice().sort((a,b) => b.createdAt - a.createdAt);
+
+  $('stTotal').textContent = all.length;
+  $('stNew').textContent   = all.filter(r => r.status !== 'done').length;
+  $('stDone').textContent  = all.filter(r => r.status === 'done').length;
+
+  const q = $('searchInput').value.trim().toLowerCase();
+  const ft = $('filterType').value;
+  const fs = $('filterStatus').value;
+
+  let list = all.filter(r => {
+    if(ft && r.type !== ft) return false;
+    if(fs && (r.status === 'done' ? 'done' : 'new') !== fs) return false;
+    if(q){
+      const hay = [r.name, r.phone, r.city, r.district, r.type, r.details].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const box = $('reqList');
+
+  if(!list.length){
+    box.innerHTML = `
+      <div class="empty">
+        <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6M9 8h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/></svg>
+        <p>لا توجد طلبات مطابقة</p>
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = list.map(r => `
+    <div class="req ${r.status === 'done' ? 'done' : ''}" data-id="${r.id}">
+      <div class="req-head">
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <span class="badge">${esc(r.type)}</span>
+          <span class="badge ${r.status === 'done' ? 'ok' : 'new'}">${r.status === 'done' ? 'تم التواصل' : 'جديد'}</span>
+        </div>
+        <span class="req-date">${fmtDate(r.createdAt)}</span>
+      </div>
+
+      <div class="req-body">
+        <div class="kv"><span>المدينة</span><b>${esc(r.city) || '—'}</b></div>
+        <div class="kv"><span>الحي</span><b>${esc(r.district) || '—'}</b></div>
+        <div class="kv"><span>المساحة</span><b>${fmtRange(r.areaFrom, r.areaTo, 'م²')}</b></div>
+        <div class="kv"><span>الميزانية</span><b>${r.budgetOpen ? 'مفتوحة' : fmtRange(r.budgetFrom, r.budgetTo, 'ريال')}</b></div>
+        <div class="kv"><span>الاسم</span><b>${esc(r.name)}</b></div>
+        <div class="kv"><span>الجوال</span><b dir="ltr">${esc(r.phone)}</b></div>
+      </div>
+
+      ${r.details ? `<p class="req-details">${esc(r.details)}</p>` : ''}
+
+      <div class="req-actions">
+        <a class="btn-sm wa" href="${waLink(r.phone)}" target="_blank" rel="noopener">واتساب</a>
+        <a class="btn-sm" href="tel:${esc(r.phone)}">اتصال</a>
+        <button class="btn-sm" data-act="toggle">${r.status === 'done' ? 'إرجاع كجديد' : 'تم التواصل'}</button>
+        <button class="btn-sm danger" data-act="del">حذف</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* أحداث اللوحة */
+$('reqList').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-act]');
+  if(!btn) return;
+  const card = btn.closest('.req');
+  const id = card.dataset.id;
+  const all = getReqs();
+  const i = all.findIndex(r => r.id === id);
+  if(i < 0) return;
+
+  if(btn.dataset.act === 'del'){
+    if(confirm('هل تريد حذف هذا الطلب نهائياً؟')){
+      all.splice(i, 1);
+      saveReqs(all);
+      renderAdmin();
+    }
+  } else if(btn.dataset.act === 'toggle'){
+    all[i].status = all[i].status === 'done' ? 'new' : 'done';
+    saveReqs(all);
+    renderAdmin();
+  }
+});
+
+$('searchInput').addEventListener('input', renderAdmin);
+$('filterType').addEventListener('change', renderAdmin);
+$('filterStatus').addEventListener('change', renderAdmin);
+$('refreshBtn').addEventListener('click', renderAdmin);
+
+/* تصدير CSV */
+$('exportBtn').addEventListener('click', () => {
+  const rows = getReqs().slice().sort((a,b) => b.createdAt - a.createdAt);
+  if(!rows.length) return alert('لا توجد طلبات للتصدير');
+
+  const head = ['التاريخ','نوع العقار','المدينة','الحي','المساحة من','المساحة إلى',
+                'الميزانية من','الميزانية إلى','ميزانية مفتوحة','تفاصيل إضافية',
+                'الاسم','رقم الجوال','الحالة'];
+
+  const lines = [head.map(h => `"${h}"`).join(',')];
+
+  rows.forEach(r => {
+    const c = [
+      fmtDate(r.createdAt), r.type, r.city, r.district,
+      r.areaFrom, r.areaTo,
+      r.budgetOpen ? '' : r.budgetFrom,
+      r.budgetOpen ? '' : r.budgetTo,
+      r.budgetOpen ? 'نعم' : 'لا',
+      r.details, r.name, r.phone,
+      r.status === 'done' ? 'تم التواصل' : 'جديد'
+    ];
+    lines.push(c.map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(','));
+  });
+
+  const blob = new Blob(['\ufeff' + lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'طلبات_العقار_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+/* ---------- استرجاع الجلسة ---------- */
+if(sessionStorage.getItem('aqar_admin') === '1') openAdmin();
+</script>
+</body>
+</html>
